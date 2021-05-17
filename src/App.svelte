@@ -1,6 +1,6 @@
 <script lang="typescript">
 	import Users from './Users.svelte';
-	import {nameStore, usersStore} from './stores';
+	import {usersStore} from './stores';
 
 	import {onMount} from 'svelte';
 
@@ -19,10 +19,7 @@
 		if (name?.trim().length > 0)
 		{	
 			name = name.trim();
-			nameStore.set(name);
-			
 			let users = $usersStore.filter(x => x.login.toLowerCase().includes(name));
-			console.log(users);
 
 			if (users)
 				allUsersList = [...users];
@@ -37,8 +34,8 @@
 <main>
 	<input type="text" bind:value={name} on:keyup={() => liveUpdate()} placeholder="search!" />
 
-	{#if (name)}
-		<h1>Search results for "{name}".</h1>
+	{#if (name.length > 0)}
+		<h1 class="text-success">Search results for "{name}".</h1>
 	{/if}
 	<Users {allUsersList}/>
 </main>
@@ -49,13 +46,6 @@
 		padding: 1em;
 		max-width: 240px;
 		margin: 0 auto;
-	}
-
-	h1 {
-		color: #ff3e00;
-		text-transform: uppercase;
-		font-size: 2em;
-		font-weight: 100;
 	}
 
 	@media (min-width: 640px) {

@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { usersStore} from './stores';
+    import {usersStore} from './stores';
     import UserList from './UserList.svelte';
 
     type User = {
@@ -8,12 +8,9 @@
         showDetails: boolean
     }
 
-    async function getUsersAsync() :Promise<User[]> {
+    async function getUsersAsync(): Promise<User[]> {
         const res = await fetch('https://api.github.com/users?login=Shannarra');
         const users = await res.json();
-
-        console.log('the users', users);
-
         
         if (res.ok) {
             usersStore.set(users);
